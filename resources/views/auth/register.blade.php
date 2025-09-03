@@ -1,58 +1,3 @@
-
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <!-- [Head] start -->
@@ -90,7 +35,7 @@
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
-<body>
+{{-- <body>
   <div class="auth-main">
     <div class="auth-wrapper v3">
       <div class="auth-form">
@@ -175,5 +120,103 @@
       </div>
     </div>
   </div>
+</body> --}}
+<body>
+  <div class="auth-main">
+    <div class="auth-wrapper v3">
+      <div class="auth-form">
+        <div class="auth-header text-center">
+          <a href="#"><img src="{{ asset('build/assets/images/logo-dark.svg') }}" alt="logo"></a>
+        </div>
+
+        <div class="card my-5">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+              <h3 class="mb-0"><b>Sign up</b></h3>
+              <a href="{{ route('login') }}" class="link-primary">Already have an account?</a>
+            </div>
+
+            <!-- Register Form -->
+            <form method="POST" action="{{ route('register') }}">
+              @csrf
+
+              <!-- Username Field -->
+              <div class="form-group mb-3">
+                <label class="form-label">Username*</label>
+                <input type="text" name="username" value="{{ old('username') }}" required autofocus
+                       class="form-control @error('username') is-invalid @enderror"
+                       placeholder="Username">
+                @error('username')
+                  <span class="text-danger small">{{ $message }}</span>
+                @enderror
+              </div>
+
+              <!-- Full Name Field -->
+              <div class="form-group mb-3">
+                <label class="form-label">Full Name*</label>
+                <input type="text" name="full_name" value="{{ old('full_name') }}" required
+                       class="form-control @error('full_name') is-invalid @enderror"
+                       placeholder="Full Name">
+                @error('full_name')
+                  <span class="text-danger small">{{ $message }}</span>
+                @enderror
+              </div>
+
+              <!-- Email Field -->
+              <div class="form-group mb-3">
+                <label class="form-label">Email Address*</label>
+                <input type="email" name="email" value="{{ old('email') }}" required
+                       class="form-control @error('email') is-invalid @enderror"
+                       placeholder="Email Address">
+                @error('email')
+                  <span class="text-danger small">{{ $message }}</span>
+                @enderror
+              </div>
+
+              <!-- Password Field -->
+              <div class="form-group mb-3">
+                <label class="form-label">Password*</label>
+                <input type="password" name="password" required
+                       class="form-control @error('password') is-invalid @enderror"
+                       placeholder="Password">
+                @error('password')
+                  <span class="text-danger small">{{ $message }}</span>
+                @enderror
+              </div>
+
+              <!-- Confirm Password Field -->
+              <div class="form-group mb-3">
+                <label class="form-label">Confirm Password*</label>
+                <input type="password" name="password_confirmation" required
+                       class="form-control"
+                       placeholder="Confirm Password">
+              </div>
+
+              <!-- Submit -->
+              <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-primary">Create Account</button>
+              </div>
+            </form>
+            <!-- End Register Form -->
+
+            <p class="mt-4 text-sm text-muted">
+              By signing up, you agree to our
+              <a href="#" class="text-primary">Terms of Service</a> and
+              <a href="#" class="text-primary">Privacy Policy</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="auth-footer row">
+          <div class="col my-1 text-center">
+            <p class="m-0">Copyright ©
+              <a href="https://brantum-technologies.com/">Brantum Technologies</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

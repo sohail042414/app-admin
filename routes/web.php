@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
-
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -26,6 +26,15 @@ Route::middleware(['auth', 'verified'])->prefix('users')->name('users.')->group(
     Route::put('{user}', [UserController::class, 'update'])->name('update');
     Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
 });
+
+
+
+Route::middleware('auth')->get('/clear-cache', function() {
+    Artisan::call('optimize:clear'); 
+    
+    return back()->with('status', 'All application caches have been cleared.');
+})->name('clear-cache');
+
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

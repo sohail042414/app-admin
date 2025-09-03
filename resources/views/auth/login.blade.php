@@ -41,6 +41,11 @@
         </div>
     </div>
     <!-- [ Pre-loader ] End -->
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <div class="auth-main">
         <div class="auth-wrapper v3">
@@ -73,8 +78,10 @@
                             </div>
                             <div class="d-flex mt-1 justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input input-primary" type="checkbox" name="remember" id="customCheckc1">
-                                    <label class="form-check-label text-muted" for="customCheckc1">Keep me sign in</label>
+                                    <input class="form-check-input input-primary" type="checkbox" name="remember"
+                                        id="customCheckc1">
+                                    <label class="form-check-label text-muted" for="customCheckc1">Keep me sign
+                                        in</label>
                                 </div>
                                 @if (Route::has('password.request'))
                                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -91,7 +98,8 @@
                 </div>
                 <div class="auth-footer row">
                     <div class="col my-1 text-center">
-                        <p class="m-0">Copyright © <a href="https://brantum-technologies.com/">Brantum Technologies</a></p>
+                        <p class="m-0">Copyright © <a href="https://brantum-technologies.com/">Brantum
+                                Technologies</a></p>
                     </div>
                 </div>
             </div>
