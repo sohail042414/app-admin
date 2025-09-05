@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Validation\Rules; 
+use Illuminate\Support\Facades\Password;
 
 use Illuminate\Validation\ValidationException;
 
@@ -107,35 +108,42 @@ public function register(Request $request)
 
 public function forgetPassword(Request $request)
 {
-    $request->validate([
-        'email' => 'required|email|exists:users,email',
-    ]);
+    $request->validate(['email' => 'required|email|exists:users,email']);
 
-   
 
-    return response()->json(['message' => 'Password reset link sent to your email.']);
+    // trigger the mail to send the password reset link
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
 
+    return $status === Password::RESET_LINK_SENT
+        ? response()->json(['message' => 'Password reset link sent to your email.'])
+        : response()->json(['message' => 'Unable to send reset link.'], 500);
 }
+
 
 
 public function resetPassword(Request $request)
 {
     $request->validate([
-        'email' => 'required|email|exists:users,email',
+        'token' => 'required',
+        'email' => 'required|email',
         'password' => 'required|confirmed|min:8',
     ]);
 
-    $user = User::where('email', $request->email)->first();
-    if ($user) {
-        $user->password = Hash::make($request->password);
-        $user->save();
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) {
+            $user->forceFill([
+                'password' => Hash::make($password),
+            ])->save();
+        }
+    );
 
-        return response()->json(['message' => 'Password reset successful.']);
-    }
-
-    return response()->json(['message' => 'User not found.'], 404);
-
-
+    return $status === Password::PASSWORD_RESET
+        ? response()->json(['message' => 'Password reset successful.'])
+        : response()->json(['message' => __($status)], 400);
 }
+
 
 }

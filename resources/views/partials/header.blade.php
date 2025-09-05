@@ -31,50 +31,37 @@
          </ul>
      </div>
      <!-- [Mobile Media Block end] -->
-     <div class="ms-auto">
-         <ul class="list-unstyled">
-           
-             <li class="dropdown pc-h-item header-user-profile">
-                 <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
-                     role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
-                    
-                         @auth
-                        <span>{{ auth()->user()->full_name }}</span>
+    <div class="ms-auto">
+    <ul class="list-unstyled mb-0">
+        <li class="dropdown pc-h-item header-user-profile">
+            <a class="pc-head-link dropdown-toggle arrow-none me-0 d-flex align-items-center" 
+               data-bs-toggle="dropdown" href="#"
+               role="button" aria-haspopup="false" data-bs-auto-close="outside" aria-expanded="false">
+                @auth
+                    <i class="ti ti-user me-2 fs-5"></i>   {{-- Profile icon --}}
+                    <span>{{ auth()->user()->full_name }}</span>
+                @endauth
+            </a>
 
-                         @endauth
-                 </a>
-                 <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
-                     <div class="dropdown-header">
-                     
-                     </div>
-                     <ul class="nav drp-tabs nav-fill nav-tabs" id="mydrpTab" role="tablist">
-                         <li class="nav-item" role="presentation">
-                             <button class="nav-link active" id="drp-t1" data-bs-toggle="tab"
-                                 data-bs-target="#drp-tab-1" type="button" role="tab" aria-controls="drp-tab-1"
-                                 aria-selected="true"><i class="ti ti-user"></i> Profile</button>
-                         </li>
-                        
-                     </ul>
-                     <div class="tab-content" id="mysrpTabContent" >
-                         <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel"
-                             aria-labelledby="drp-t1" tabindex="0">
-                             <a href="{{ route('clear-cache') }}" class="dropdown-item">
-                                 <i class="ti ti-wallet"></i>
-                                 <span>Clear Cache</span>
-                             </a>
+            <div class="dropdown-menu dropdown-menu-end shadow rounded-3 p-2">
+                <a href="{{ route('clear-cache') }}" class="dropdown-item d-flex align-items-center">
+                    <i class="ti ti-refresh me-2"></i>
+                    <span>Clear Cache</span>
+                </a>
 
-                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                 @csrf
-                             </form>
-                             <a href="#!" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                 <i class="ti ti-power"></i>
-                                 <span>Logout</span>
-                             </a>
-                         </div>
-                         
-                     </div>
-                 </div>
-             </li>
-         </ul>
-     </div>
+                <div class="dropdown-divider"></div>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                <a href="#!" class="dropdown-item d-flex align-items-center"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="ti ti-power me-2 text-danger"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+
  </div>
